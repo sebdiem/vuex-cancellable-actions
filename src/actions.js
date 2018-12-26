@@ -77,10 +77,13 @@ function actionWrapper (action) {
  * Note: commits already performed won't be undone.
  */
 export function makeCancellable (actions) {
-  for (let action in actions) {
-    actions[action] = actionWrapper(actions[action])
-  }
-  return actions
+  return Object.keys(actions).reduce(
+    (acc, key) => {
+      acc[key] = actionWrapper(actions[key])
+      return acc
+    },
+    {}
+  )
 }
 
 /* Cancel an action that was made cancellable by the wrapper above.
