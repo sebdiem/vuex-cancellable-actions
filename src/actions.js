@@ -58,7 +58,7 @@ function actionWrapper (action) {
     }
 
     // handle async And sync actions
-    let ret = action(context, ...args)
+    let ret = action.call(this, context, ...args)
     if (!isPromise(ret)) ret = Promise.resolve(ret)
     await ret
     if (isRootAction) {
