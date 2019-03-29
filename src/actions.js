@@ -112,7 +112,7 @@ export function takeLatest (action) {
     }
     previousCalls.push(context.rootActionId)
     try {
-      return await action(context, ...args)
+      return await action.call(this, context, ...args)
     } catch (e) {
       if (e.name !== 'ActionCancelledError') throw e
     }
